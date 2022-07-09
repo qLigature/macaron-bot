@@ -7,7 +7,7 @@ type Command = {
   data: any; // ANYSCRIPT LETS GOOOOOO
 };
 
-const commands = [];
+const commands: any = [];
 
 for (const module of Object.values<Command>(commandModules)) {
   commands.push(module.data);
