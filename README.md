@@ -12,7 +12,7 @@ Buff Macaron is a Discord bot for the HARUMAKI GOHAN server!
 
 ### Prerequisites
 
-- Node.js (v16.16.0 or higher)
+- Node.js (v16.14.2 or higher)
 - [Discord Bot Application](https://discord.com/developers/applications)
 
 ### Installation & Usage
