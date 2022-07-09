@@ -1,5 +1,4 @@
 import { REST } from "@discordjs/rest";
-import { SlashCommandBuilder } from "@discordjs/builders";
 import { Routes } from "discord-api-types/v9";
 import config from "./config";
 import * as commandModules from "./commands";
@@ -17,7 +16,7 @@ for (const module of Object.values<Command>(commandModules)) {
 const rest = new REST({ version: "9" }).setToken(config.DISCORD_TOKEN);
 
 rest
-  .put(Routes.applicationGuildCommands(config.CLIENT_ID, config.GUILD_ID), {
+  .put(Routes.applicationGuildCommands(config.CLIENT_TOKEN, config.GUILD_ID), {
     body: commands,
   })
   .then(() => {
