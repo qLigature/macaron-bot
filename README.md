@@ -70,7 +70,7 @@ This section will guide you to setup VSCode for developing.
 
 After installing the ESLint extension you should see a double check mark next to `ESLint` in the bottom right corner of VSCode. The plugin will load the configuration from `.eslintrc`. If you have troubles, click on `ESLint` to open the output console for more information.
 
-![Working ESLint](Images/docs/eslint-working.png)
+![Working ESLint](assets/docs/eslint-working.png)
 
 ### Prettier
 
@@ -82,7 +82,7 @@ After installing the Prettier extension you should see it in the bottorm right c
 Ctrl + Shift + P > "Format Document"
 ```
 
-![Working Prettier](Images/docs/prettier-working.png)
+![Working Prettier](assets/docs/prettier-working.png)
 
 #### Format on Save
 
@@ -104,7 +104,7 @@ It is highly recommended to turn this feature on in VSCode. It will automaticall
 
 3. Tick the checkbox for `Editor: Format On Save`
 
-![Format on Save Setting](Images/docs/format-on-save.png)
+![Format on Save Setting](assets/docs/format-on-save.png)
 
 ## License
 
