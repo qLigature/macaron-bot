@@ -14,19 +14,18 @@ export async function execute(interaction: CommandInteraction) {
   let webhook = webhooks.find((w) => w.token != null);
 
   if (!webhook) {
-    webhook = await channel.createWebhook('Nira-chan', {
+    webhook = await channel.createWebhook('Bald Macaron', {
       avatar: interaction.client.user!.avatarURL(),
     });
   }
 
-  interaction.deleteReply().then(
-    async () =>
-      await await webhook!.send({
-        content: 'yumyaaaaaaah',
-        username: 'yunyah',
-        avatarURL: interaction.client.user!.defaultAvatarURL,
-      }),
-  );
+  // TODO: figure out how to bypass mandatory reply for interactions when sending webhook
+  interaction.reply('​');
+  await interaction.deleteReply();
 
-  return interaction.reply('<:baldlilihuh:974796458651971585>');
+  return await webhook!.send({
+    avatarURL: interaction.client.user!.defaultAvatarURL,
+    username: 'yunyah',
+    content: 'i am a fake yumyah sorr',
+  });
 }
