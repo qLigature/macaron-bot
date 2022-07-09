@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
-    "dev": "concurrently \"tsc -w\" \"node build/index.js\""
+    "dev": "concurrently \"tsc -w\" \"nodemon build/index.js\""
   },
   "author": "Jilling22 ft. HARUCORD",
   "license": "ISC",
