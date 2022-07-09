@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "build": "tsc",
-    "start": "npm run deploy:commands && tsc && node build/index.js",
+    "start": "npm run deploy:commands && node build/index.js",
     "dev": "npm run deploy:commands && concurrently \"tsc -w\" \"nodemon build/index.js\"",
     "deploy:commands": "tsc && node build/deploy-commands.js"
   },
