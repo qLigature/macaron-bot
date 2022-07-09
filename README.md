@@ -1,0 +1,3 @@
+# Macaron Bot v0.1
+
+Looking for Lili...
