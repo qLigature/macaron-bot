@@ -1,5 +1,8 @@
 import { Client, Intents } from "discord.js";
 import config from "./config";
+import * as commandModules from "./commands";
+
+const commands = Object(commandModules);
 
 export const client = new Client({
   intents: [
@@ -21,9 +24,7 @@ client.on("interactionCreate", async (interaction) => {
 
   const { commandName } = interaction;
 
-  if (commandName === "riceball") {
-    return interaction.reply("<:baldlilihuh:974796458651971585>");
-  }
+  commands[commandName].execute(interaction, client);
 });
 
 client.login(config.DISCORD_TOKEN);

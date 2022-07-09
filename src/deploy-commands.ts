@@ -2,12 +2,17 @@ import { REST } from "@discordjs/rest";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { Routes } from "discord-api-types/v9";
 import config from "./config";
+import * as commandModules from "./commands";
 
-const commands = [
-  new SlashCommandBuilder()
-    .setName("riceball")
-    .setDescription("Lures wild riceball eaters"),
-];
+type Command = {
+  data: any; // ANYSCRIPT LETS GOOOOOO
+};
+
+const commands = [];
+
+for (const module of Object.values<Command>(commandModules)) {
+  commands.push(module.data);
+}
 
 const rest = new REST({ version: "9" }).setToken(config.DISCORD_TOKEN);
 
