@@ -5,8 +5,8 @@
   "main": "index.ts",
   "scripts": {
     "build": "tsc",
-    "start": "node build/index.js",
-    "dev": "concurrently \"tsc -w\" \"nodemon build/index.js\"",
+    "start": "npm run deploy:commands && tsc && node build/index.js",
+    "dev": "npm run deploy:commands && concurrently \"tsc -w\" \"nodemon build/index.js\"",
     "deploy:commands": "tsc && node build/deploy-commands.js"
   },
   "author": "Jilling22 ft. HARUCORD",
