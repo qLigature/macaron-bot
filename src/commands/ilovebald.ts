@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Client, CommandInteraction } from 'discord.js';
+import { getUserLabel } from '../util/getUserLabel';
 
 export const data = new SlashCommandBuilder()
   .setName('ilovebald')
@@ -23,12 +24,12 @@ export async function execute(interaction: CommandInteraction, client: Client) {
 
   // exclamation point tells TS that this value cannot poossibly be null
   const reason = interaction.options.getString('reason')!;
-  const { user } = interaction;
+  const { nickname } = getUserLabel(interaction);
 
-  channel.send(`${user.username} loves bald, because ${reason}.`);
+  channel.send(`${nickname} loves bald, because ${reason}.`);
 
   return interaction.reply({
-    content: `Thank you for your love for bald, ${user.username}. \
+    content: `Thank you for your love for bald, ${nickname}. \
 The message above will personally be sent to Harumaki Gohan's email for future reference.`,
     ephemeral: true,
   });
