@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
+import { emojis } from '../config/config.json';
 
 export const data = new SlashCommandBuilder()
   .setName('baldworship')
@@ -7,6 +8,6 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction: CommandInteraction) {
   return interaction.reply(
-    'May the light of emotes shine through the forest of bald <:baldmikageshock:976646227888336906>',
+    `May the light of emotes shine through the forest of bald ${emojis.baldmikageshock}`,
   );
 }
