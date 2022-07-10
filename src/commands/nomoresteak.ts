@@ -24,7 +24,8 @@ export async function execute(interaction: CommandInteraction) {
   await interaction.deleteReply();
 
   return await webhook!.send({
-    avatarURL: 'https://cdn.discordapp.com/attachments/992252763369128005/995540026697973800/Cheryl-1.png',
+    avatarURL:
+      'https://cdn.discordapp.com/attachments/992252763369128005/995540026697973800/Cheryl-1.png',
     username: 'Jill is chilling nearby',
     content: 'My steak in duolingo is no more <:baldtina:975234600160870422>',
   });
