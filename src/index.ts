@@ -1,5 +1,5 @@
 import { Client, Interaction } from 'discord.js';
-import config from './config';
+import envTokens from './config/env-check';
 import * as commandModules from './commands';
 
 const commands = Object(commandModules);
@@ -16,8 +16,7 @@ client.on('interactionCreate', async (interaction: Interaction) => {
   if (!interaction.isCommand()) return;
 
   const { commandName } = interaction;
-
   commands[commandName].execute(interaction, client);
 });
 
-client.login(config.DISCORD_TOKEN);
+client.login(envTokens.DISCORD_TOKEN);
