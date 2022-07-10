@@ -8,17 +8,17 @@ type Command = {
   data: any;
 };
 
-const { DISCORD_TOKEN, CLIENT_TOKEN, GUILD_ID } = envTokens;
+const { CLIENT_TOKEN, CLIENT_ID, GUILD_ID } = envTokens;
 const commands: any = [];
 
 for (const module of Object.values<Command>(commandModules)) {
   commands.push(module.data);
 }
 
-const rest = new REST({ version: '9' }).setToken(DISCORD_TOKEN);
+const rest = new REST({ version: '9' }).setToken(CLIENT_TOKEN);
 
 rest
-  .put(Routes.applicationGuildCommands(CLIENT_TOKEN, GUILD_ID), {
+  .put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
     body: commands,
   })
   .then(() => {

@@ -19,4 +19,4 @@ client.on('interactionCreate', async (interaction: Interaction) => {
   commands[commandName].execute(interaction, client);
 });
 
-client.login(envTokens.DISCORD_TOKEN);
+client.login(envTokens.CLIENT_TOKEN);
