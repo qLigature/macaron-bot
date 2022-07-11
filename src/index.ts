@@ -1,4 +1,4 @@
-import { Client, Interaction } from 'discord.js';
+import { Client, Interaction, ClientEvents } from 'discord.js';
 import envTokens from './config/env-check';
 import * as commandModules from './commands';
 import * as fs from 'fs';
@@ -20,26 +20,18 @@ client.on('interactionCreate', async (interaction: Interaction) => {
   commands[commandName].execute(interaction, client);
 });
 
-fs.readdir(
-  './build/events/',
-  (err: NodeJS.ErrnoException | null, files: string[]) => {
-    if (err) return console.error(err);
+const eventFolderPath = __dirname + '/events/';
 
-    files.forEach((fileName) => {
-      if (!fileName.endsWith('.js')) return;
+fs.readdir(eventFolderPath, async (err, files) => {
+  if (err) return console.error(err);
 
-      // TODO: fix this so it doesnt need to store require inside var
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const event = require(`./events/${fileName}`);
+  for (const file of files) {
+    const event = await import(eventFolderPath + file);
+    const eventName = file.split('.')[0];
+    client.on(<keyof ClientEvents>eventName, event.default.bind(null, client));
 
-      console.log(`Macaron has successfully loaded ${fileName}!\n`);
-
-      const eventName = fileName.split('.')[0];
-      client.on(eventName, event.bind(null, client));
-
-      delete require.cache[require.resolve(`./events/${fileName}`)];
-    });
-  },
-);
+    console.log(`Macaron has successfully loaded ${file}!`);
+  }
+});
 
 client.login(envTokens.CLIENT_TOKEN);
