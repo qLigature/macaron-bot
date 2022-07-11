@@ -33,7 +33,7 @@ fs.readdir("./build/events/", (err: NodeJS.ErrnoException | null, files: string[
 
     console.log(`${i + 1}: ${f} loaded!\n`);
     console.log(event)
-    
+  
     let eventName = f.split(".")[0];
 
     client.on(eventName, event.bind(null, client));
