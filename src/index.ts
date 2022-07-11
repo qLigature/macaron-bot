@@ -1,4 +1,4 @@
-import { Client, Interaction, Message, Intents } from 'discord.js';
+import { Client, Interaction } from 'discord.js';
 import envTokens from './config/env-check';
 import * as commandModules from './commands';
 import * as fs from 'fs';
@@ -6,13 +6,12 @@ import * as fs from 'fs';
 const commands = Object(commandModules);
 
 export const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS],
+  intents: ['GUILDS', 'GUILD_MESSAGES'],
 });
 
 client.once('ready', () => {
   console.log('Beep boop! Macaron is ready to clean!');
 });
-
 
 client.on('interactionCreate', async (interaction: Interaction) => {
   if (!interaction.isCommand()) return;
@@ -21,24 +20,26 @@ client.on('interactionCreate', async (interaction: Interaction) => {
   commands[commandName].execute(interaction, client);
 });
 
-fs.readdir("./build/events/", (err: NodeJS.ErrnoException | null, files: string[]) => {
-  if (err) return console.error(err);
+fs.readdir(
+  './build/events/',
+  (err: NodeJS.ErrnoException | null, files: string[]) => {
+    if (err) return console.error(err);
 
-  console.log(`Loading ${files.length} Events!\n`);
-  console.log(files);
-  files.forEach((f, i) => {
-    if (!f.endsWith(".js")) return;
+    files.forEach((fileName) => {
+      if (!fileName.endsWith('.js')) return;
 
-    const event = require(`./events/${f}`);
+      // TODO: fix this so it doesnt need to store require inside var
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const event = require(`./events/${fileName}`);
 
-    console.log(`${i + 1}: ${f} loaded!\n`);
-    console.log(event)
-    
-    let eventName = f.split(".")[0];
+      console.log(`Macaron has successfully loaded ${fileName}!\n`);
 
-    client.on(eventName, event.bind(null, client));
-    delete require.cache[require.resolve(`./events/${f}`)];
-  });
-});
+      const eventName = fileName.split('.')[0];
+      client.on(eventName, event.bind(null, client));
+
+      delete require.cache[require.resolve(`./events/${fileName}`)];
+    });
+  },
+);
 
 client.login(envTokens.CLIENT_TOKEN);
