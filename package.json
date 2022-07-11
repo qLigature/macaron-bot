@@ -1,0 +1,38 @@
+{
+  "name": "macaron-ts",
+  "version": "1.0.0",
+  "description": "Your very own MACARON, now in TypeScript! Disclaimer: cannot clean rooms",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run deploy:commands && node build/index.js",
+    "dev": "npm run deploy:commands && concurrently \"tsc -w\" \"nodemon build/index.js\"",
+    "deploy:commands": "tsc && node build/deploy-commands.js"
+  },
+  "author": "Jilling22 ft. HARUCORD",
+  "license": "ISC",
+  "engines": {
+    "node": ">=16.14.2",
+    "npm": ">=8.5.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "concurrently": "^7.2.2",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@discordjs/rest": "^0.5.0",
+    "discord.js": "^13.8.1",
+    "dotenv": "^16.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jilling22/Macaron-bot.git"
+  }
+}
