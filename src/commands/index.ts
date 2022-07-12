@@ -8,3 +8,5 @@ export * as harugang from './harugang';
 export * as baseball from './baseball';
 export * as baseballjp from './baseballjp';
 export * as iyowa from './iyowa';
+export * as harumakigohan from './harumakigohan';
+export * as はるまきごはん from './はるまきごはん';
