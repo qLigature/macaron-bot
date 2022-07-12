@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Client, CommandInteraction } from 'discord.js';
-import { getUserLabel } from '../util/getUserLabel';
+import { getUserLabel } from '../util/get-user-label';
 
 export const data = new SlashCommandBuilder()
   .setName('ilovebald')
@@ -13,24 +13,20 @@ export const data = new SlashCommandBuilder()
   );
 
 export async function execute(interaction: CommandInteraction, client: Client) {
-  if (!interaction?.channelId) {
-    return;
-  }
+  if (!interaction?.channelId) return;
 
   const channel = await client.channels.fetch(interaction.channelId);
-  if (!channel || channel.type !== 'GUILD_TEXT') {
-    return;
-  }
+  if (!channel || channel.type !== 'GUILD_TEXT') return;
 
-  // exclamation point tells TS that this value cannot poossibly be null
-  const reason = interaction.options.getString('reason')!;
   const { nickname } = getUserLabel(interaction);
+  const reason = interaction.options.getString('reason')!;
 
   channel.send(`${nickname} loves bald, because ${reason}.`);
 
   return interaction.reply({
-    content: `Thank you for your love for bald, ${nickname}. \
-The message above will personally be sent to Harumaki Gohan's email for future reference.`,
+    content:
+      `Thank you for your love for bald, ${nickname}. ` +
+      "The message below will personally be sent to Harumaki Gohan's email for future reference.",
     ephemeral: true,
   });
 }
