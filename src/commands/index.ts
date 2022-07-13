@@ -7,3 +7,4 @@ export * as bonk from './bonk';
 export * as harugang from './harugang';
 export * as baseball from './baseball';
 export * as baseballjp from './baseballjp';
+export * as opt from './opt';

@@ -2,6 +2,7 @@ import {Client, Message, TextChannel, Webhook} from 'discord.js';
 import {getMap} from '../util/emojiMap';
 const regex = new RegExp(String.raw`<a?:\w+:\d+>|(?<!\\):(\w+):`, 'g')
 import * as _ from 'lodash';
+import {exportGuild} from '../models/guild';
 
 module.exports = async (client: Client, message: Message) => {
 
@@ -19,9 +20,12 @@ module.exports = async (client: Client, message: Message) => {
     emojis!.forEach(async em => {
         const emoji = emojiMap.get(em)
         if (!emoji) return;
+
+        const guild = await exportGuild(emoji.guild.id)
+        if (!guild.opt) return
+
         newMsg = newMsg.replaceAll(em, emojiMap.get(em))
     });
-
 
     // send emojis
     if (newMsg == message.content) return;
