@@ -1,9 +1,10 @@
-import { updateMap } from "../util/emojiMap";
-import {Client} from 'discord.js';
-import {connect} from 'mongoose';
+import { updateMap } from '../util/emojiMap';
+import { Client } from 'discord.js';
+import { connect } from 'mongoose';
 
 module.exports = (client: Client) => {
-  console.log('Beep boop! Macaron is ready to clean!');
+  connect(process.env.MONGODB_URI!);
   updateMap(client);
-  connect(process.env.CON_STR!);
+
+  console.log('Beep boop! Macaron is ready to clean!');
 };
