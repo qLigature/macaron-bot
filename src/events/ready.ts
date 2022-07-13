@@ -1,4 +1,4 @@
-import { updateMap } from '../util/emojiMap';
+import { updateMap } from '../util/map-emoji';
 import { Client } from 'discord.js';
 import { connect } from 'mongoose';
 

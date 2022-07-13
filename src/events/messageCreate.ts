@@ -1,5 +1,5 @@
 import { Client, Message, TextChannel } from 'discord.js';
-import { getMap } from '../util/emojiMap';
+import { getMap } from '../util/map-emoji';
 const regex = new RegExp(String.raw`<a?:\w+:\d+>|(?<!\\):(\w+):`, 'g');
 import * as _ from 'lodash';
 import { exportGuild } from '../models/guild';
