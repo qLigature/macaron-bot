@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, TextChannel } from 'discord.js';
 import { images } from '../config/config.json';
-import { en } from '../config/harugquotes.json';
+import en from '../data/harugquotesen.json';
 
 export const data = new SlashCommandBuilder()
   .setName('harumakigohan')

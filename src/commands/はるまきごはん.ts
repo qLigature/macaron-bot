@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, TextChannel } from 'discord.js';
 import { images } from '../config/config.json';
-import { jp } from '../config/harugquotes.json';
+import jp from '../data/harugquotesjp.json';
 
 export const data = new SlashCommandBuilder()
   .setName('はるまきごはん')
