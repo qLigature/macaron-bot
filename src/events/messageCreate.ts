@@ -23,7 +23,9 @@ module.exports = async (client: Client, message: Message) => {
         if (!emoji) return;
 
         const guild = await exportGuild(emoji.guild.id)
-        if (!guild.opt) return console.log("emoji opt out");
+
+        console.log(guild.blacklist)
+        if (!guild.opt || guild.blacklist.includes(`:${emoji.name}:`)) return 
 
         newMsg = newMsg.replaceAll(em, emojiMap.get(em))
     }
