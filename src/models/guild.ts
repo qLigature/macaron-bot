@@ -1,18 +1,16 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import { Schema, model } from 'mongoose';
+import { Schema, model, UpdateQuery } from 'mongoose';
 
-// TODO: change Object type to more accurate type
 interface IGuild {
   id: string;
   opt: boolean;
-  blacklist: Array<Object>;
+  blacklist: Array<string>;
   isOnBlacklist: boolean;
 }
 
 const guildSchema = new Schema<IGuild>({
   id: { type: String, required: true },
   opt: { type: Boolean, required: true },
-  blacklist: Array,
+  blacklist: [String],
   isOnBlacklist: Boolean,
 });
 
@@ -33,6 +31,9 @@ export const createGuild = async (id: string) => {
   });
 };
 
-export const updateGuild = async (id: string, settings: Object) => {
-  return guild.findOneAndUpdate({ id: id }, settings );
+export const updateGuild = async (
+  id: string,
+  settings: UpdateQuery<IGuild>,
+) => {
+  return guild.findOneAndUpdate({ id: id }, settings);
 };
