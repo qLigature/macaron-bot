@@ -22,11 +22,8 @@ module.exports = async (client: Client, message: Message) => {
 
   for (const emojiText of messageEmojis) {
     const emoji = emojiMap.get(emojiText);
-    if (!emoji) return;
+    if (!emoji) continue;
 
-    console.log(emoji);
-
-    console.log(guild.blacklist);
     if (guild.blacklist.includes(`:${emoji.name}:`)) return;
 
     newMsg = newMsg.replaceAll(emojiText, emoji);
