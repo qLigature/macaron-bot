@@ -21,6 +21,15 @@ export async function execute(interaction: CommandInteraction) {
     });
   }
 
+  const quote = () => {
+    const number = jp[Math.floor(Math.random() * jp.length)];
+    if (number === 'アイコンの振り向き方同じすぎる') {
+      return number + ' ' + images.shoulder;
+    } else {
+      return number;
+    }
+  };
+
   // TODO: figure out how to bypass mandatory reply for interactions when sending webhook
   interaction.reply('​');
   await interaction.deleteReply();
@@ -28,6 +37,6 @@ export async function execute(interaction: CommandInteraction) {
   return await webhook!.send({
     avatarURL: images.HarugoAvatar,
     username: 'はるまきごはん',
-    content: jp[Math.floor(Math.random() * jp.length)],
+    content: quote(),
   });
 }
