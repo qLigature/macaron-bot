@@ -2,52 +2,40 @@ import { Client, Message, TextChannel, MessageEmbed } from 'discord.js';
 import { getMap } from '../util/map-emoji';
 import _ from 'lodash';
 import { exportGuild } from '../models/guild';
+import { setWebhook } from '../util/set-webhook';
 
 module.exports = async (client: Client, message: Message) => {
-  // Don't detect messages from bots or guildless messages
-  if (message.author.bot) return;
+  if (!message.guild!.me?.permissions.has('MANAGE_MESSAGES')) {
+    console.log('Missing permissions to manage messages!');
+    return;
+  }
 
+  // Don't detect messages from bots or guildless messages (i.e. DMs)
+  if (message.author.bot || !message.guild) return;
+
+  // Don't detect emojiless messages
   const emojiMatcher = new RegExp(String.raw`<a?:\w+:\d+>|(?<!\\):(\w+):`, 'g');
-
   let messageEmojis = message.content.match(emojiMatcher);
   if (messageEmojis === null) return;
 
+  // Don't detect messages from servers that did not opt in
+  const { opt: guildOptedIn, blacklist } = await exportGuild(message.guild.id);
+  if (!guildOptedIn) return;
+
+  // Substitute each emoji name with the emoji itself
   messageEmojis = _.uniq(messageEmojis);
-  const emojiMap = getMap();
+  const newMessage = emojify(message.content, messageEmojis, blacklist);
 
-  const guild = await exportGuild(message.guild!.id);
-  if (!guild.opt) return;
+  // If nothing changed, don't send a new message
+  if (newMessage === message.content) return;
 
-  let newMsg = message.content;
-
-  for (const emojiText of messageEmojis) {
-    const emoji = emojiMap.get(emojiText);
-    if (!emoji) continue;
-
-    if (guild.blacklist.includes(`:${emoji.name}:`)) return;
-
-    newMsg = newMsg.replaceAll(emojiText, emoji);
-  }
-
-  // send emojis
-  if (newMsg == message.content) return;
-
-  if (message.guild?.me?.permissions.has('MANAGE_MESSAGES')) {
-    message.delete();
-  }
-
+  message.delete();
   const channel = message.channel as TextChannel;
-  const webhooks = await channel.fetchWebhooks();
-  let webhook = webhooks.find((w) => w.token != null);
 
-  if (!webhook) {
-    webhook = await channel.createWebhook('Bald Macaron', {
-      avatar: client.user?.avatarURL(),
-    });
-  }
+  const webhook = await setWebhook(client, channel);
 
   const embeds = [];
-  if (message.reference != null) {
+  if (message.reference !== null) {
     const reply = await message.fetchReference();
 
     if (reply.content.length > 900)
@@ -69,7 +57,23 @@ module.exports = async (client: Client, message: Message) => {
   return await webhook!.send({
     avatarURL: message.author.displayAvatarURL(),
     username: message.author.username,
-    content: newMsg,
+    content: newMessage,
     embeds: embeds,
   });
+};
+
+const emojify = (
+  message: string,
+  msgEmojis: RegExpMatchArray,
+  blacklist: string[],
+) => {
+  const emojiMap = getMap();
+
+  for (const emojiText of msgEmojis) {
+    const emoji = emojiMap.get(emojiText);
+    if (!emoji || blacklist.includes(`:${emoji.name}:`)) continue;
+
+    message = message.replaceAll(emojiText, emoji);
+  }
+  return message;
 };
