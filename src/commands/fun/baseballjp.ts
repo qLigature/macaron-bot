@@ -1,10 +1,11 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, TextChannel } from 'discord.js';
 import { images } from '../config/config.json';
-import en from '../data/harugquotesen.json';
+import jp from '../data/harugquotesjp.json';
+import { setWebhook } from '../../util/set-webhook';
 
 export const data = new SlashCommandBuilder()
-  .setName('harumakigohan')
+  .setName('はるまきごはん')
   .setDescription('The creator of Buff Macaron');
 
 export async function execute(interaction: CommandInteraction) {
@@ -12,21 +13,11 @@ export async function execute(interaction: CommandInteraction) {
     interaction.channel!.id,
   )) as TextChannel;
 
-  const webhooks = await channel.fetchWebhooks();
-  let webhook = webhooks.find((w) => w.token != null);
-
-  if (!webhook) {
-    webhook = await channel.createWebhook('Bald Macaron', {
-      avatar: interaction.client.user!.avatarURL(),
-    });
-  }
+  const webhook = await setWebhook(interaction.client, channel);
 
   const quote = () => {
-    const number = en[Math.floor(Math.random() * en.length)];
-    if (
-      number ===
-      'The way our icons are looking over their shoulders is too similar'
-    ) {
+    const number = jp[Math.floor(Math.random() * jp.length)];
+    if (number === 'アイコンの振り向き方同じすぎる') {
       return number + ' ' + images.shoulder;
     } else {
       return number;
@@ -39,7 +30,7 @@ export async function execute(interaction: CommandInteraction) {
 
   return await webhook!.send({
     avatarURL: images.HarugoAvatar,
-    username: 'Harumaki Gohan',
+    username: 'はるまきごはん',
     content: quote(),
   });
 }

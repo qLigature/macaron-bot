@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
-import { emojis } from '../config/config.json';
+import { emojis } from '../../config/config.json';
 
 export const data = new SlashCommandBuilder()
   .setName('riceball')
