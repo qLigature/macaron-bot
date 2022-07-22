@@ -1,15 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Client } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 import envTokens from './config/env-check';
 import * as commandModules from './commands';
+import { Player } from 'discord-player';
 
 type Command = {
   data: any;
 };
 
-const { CLIENT_TOKEN, CLIENT_ID, GUILD_ID } = envTokens;
 const commands: any = [];
+
+const client = new Client({ intents: ['GUILDS', 'GUILD_MESSAGES'] });
+
+const { CLIENT_TOKEN, CLIENT_ID, GUILD_ID } = envTokens;
+
+client.player = new Player(client, {
+  ytdlOptions: {
+    quality: 'highestaudio',
+    highWaterMark: 1 << 25,
+  },
+});
 
 for (const module of Object.values<Command>(commandModules)) {
   commands.push(module.data);
