@@ -1,8 +1,8 @@
 import { Client, Message, TextChannel, MessageEmbed } from 'discord.js';
-import { getMap } from '../util/map-emoji';
 import _ from 'lodash';
 import { exportGuild } from '../models/guild';
 import { setWebhook } from '../util/set-webhook';
+import { insertEmoji } from '../util/insert-emoji';
 
 module.exports = async (client: Client, message: Message) => {
   if (!message.guild!.me?.permissions.has('MANAGE_MESSAGES')) {
@@ -24,7 +24,7 @@ module.exports = async (client: Client, message: Message) => {
 
   // Substitute each emoji name with the emoji itself
   messageEmojis = _.uniq(messageEmojis);
-  const newMessage = emojify(message.content, messageEmojis, blacklist);
+  const newMessage = insertEmoji(message.content, messageEmojis, blacklist);
 
   // If nothing changed, don't send a new message
   if (newMessage === message.content) return;
@@ -60,20 +60,4 @@ module.exports = async (client: Client, message: Message) => {
     content: newMessage,
     embeds: embeds,
   });
-};
-
-const emojify = (
-  message: string,
-  msgEmojis: RegExpMatchArray,
-  blacklist: string[],
-) => {
-  const emojiMap = getMap();
-
-  for (const emojiText of msgEmojis) {
-    const emoji = emojiMap.get(emojiText);
-    if (!emoji || blacklist.includes(`:${emoji.name}:`)) continue;
-
-    message = message.replaceAll(emojiText, emoji);
-  }
-  return message;
 };
