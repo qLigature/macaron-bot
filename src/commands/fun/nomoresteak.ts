@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, TextChannel } from 'discord.js';
-import { emojis, images } from '../config/config.json';
+import { emojis, images } from '../../config/config.json';
+import { setWebhook } from '../../util/set-webhook';
 
 export const data = new SlashCommandBuilder()
   .setName('nomoresteak')
@@ -11,14 +12,7 @@ export async function execute(interaction: CommandInteraction) {
     interaction.channel!.id,
   )) as TextChannel;
 
-  const webhooks = await channel.fetchWebhooks();
-  let webhook = webhooks.find((w) => w.token != null);
-
-  if (!webhook) {
-    webhook = await channel.createWebhook('Bald Macaron', {
-      avatar: interaction.client.user!.avatarURL(),
-    });
-  }
+  const webhook = await setWebhook(interaction.client, channel);
 
   // TODO: figure out how to bypass mandatory reply for interactions when sending webhook
   interaction.reply('​');
