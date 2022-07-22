@@ -8,8 +8,6 @@ export * as はるまきごはん from './fun/はるまきごはん';
 export * as bonk from './image/bonk';
 export * as harugang from './image/harugang';
 export * as iyowa from './image/iyowa';
-export * as baseball from './fun/baseball';
-export * as baseballjp from './fun/baseballjp';
 export * as opt from './moderation/opt';
 export * as blacklist from './moderation/blacklist';
 export * as whitelist from './moderation/whitelist';
