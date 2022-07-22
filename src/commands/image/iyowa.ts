@@ -4,8 +4,8 @@ import { images } from '../../config/config.json';
 import { setWebhook } from '../../util/set-webhook';
 
 export const data = new SlashCommandBuilder()
-  .setName('baseballjp')
-  .setDescription("a Harumaki Gohan's wish in japanese");
+  .setName('iyowa')
+  .setDescription('the kukarin girl giving you banana');
 
 export async function execute(interaction: CommandInteraction) {
   const channel = (await interaction.client.channels.fetch(
@@ -19,8 +19,8 @@ export async function execute(interaction: CommandInteraction) {
   await interaction.deleteReply();
 
   return await webhook!.send({
-    avatarURL: images.HarugoAvatar,
-    username: 'はるまきごはん',
-    content: `プロ野球選手になったら自分の登場曲をめっちゃキモい音だけで作った曲にしてピッチャー不安にさせたい`,
+    avatarURL: images.iyowaAvatar,
+    username: 'いよわ',
+    content: images.banana,
   });
 }

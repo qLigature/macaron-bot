@@ -1,11 +1,12 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, TextChannel } from 'discord.js';
 import { images } from '../../config/config.json';
+import jp from '../../data/harugquotesjp.json';
 import { setWebhook } from '../../util/set-webhook';
 
 export const data = new SlashCommandBuilder()
-  .setName('baseball')
-  .setDescription("a Harumaki Gohan's wish");
+  .setName('はるまきごはん')
+  .setDescription('The creator of Buff Macaron');
 
 export async function execute(interaction: CommandInteraction) {
   const channel = (await interaction.client.channels.fetch(
@@ -14,13 +15,22 @@ export async function execute(interaction: CommandInteraction) {
 
   const webhook = await setWebhook(interaction.client, channel);
 
+  const quote = () => {
+    const number = jp[Math.floor(Math.random() * jp.length)];
+    if (number === 'アイコンの振り向き方同じすぎる') {
+      return number + ' ' + images.shoulder;
+    } else {
+      return number;
+    }
+  };
+
   // TODO: figure out how to bypass mandatory reply for interactions when sending webhook
   interaction.reply('​');
   await interaction.deleteReply();
 
   return await webhook!.send({
     avatarURL: images.HarugoAvatar,
-    username: 'Harumaki Gohan',
-    content: `if I become a pro baseball player, I want to make my walk-up song a song that's made only out of really disgusting sounds and make the pitcher feel uneasy`,
+    username: 'はるまきごはん',
+    content: quote(),
   });
 }
