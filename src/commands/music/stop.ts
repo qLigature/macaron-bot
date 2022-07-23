@@ -1,16 +1,17 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
 
-module.exports = {
-  data: new SlashCommandBuilder()
-    .setName('stop')
-    .setDescription('Stops the bot and clears the queue'),
-  run: async ({ client, interaction }: any) => {
-    const queue = client.player.getQueue(interaction.guildId);
+export const data = new SlashCommandBuilder()
+  .setName('stop')
+  .setDescription('Stops the bot and clears the queue');
 
-    if (!queue)
-      return await interaction.editReply('Burning queue.');
+export async function execute(interaction: CommandInteraction) {
+  const queue = interaction.client.player.getQueue(interaction.guildId!);
 
-    queue.destroy();
-    await interaction.editReply('Bye!');
-  },
-};
+  await interaction.reply('Playing something...');
+
+  if (!queue) return await interaction.editReply('Burning queue.');
+
+  queue.destroy();
+  return interaction.editReply('Bye!');
+}
