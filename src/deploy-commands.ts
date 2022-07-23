@@ -25,7 +25,7 @@ client.player = new Player(client, {
   },
 });
 
-for (const module of Object.values<Command>(commandModules)) {
+for (const module of Object.values<any>(commandModules)) {
   commands.push(module.data);
 }
 
