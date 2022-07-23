@@ -12,3 +12,8 @@ export * as opt from './moderation/opt';
 export * as blacklist from './moderation/blacklist';
 export * as whitelist from './moderation/whitelist';
 export * as blocklist from './moderation/blocklist';
+export * as play from './music/play';
+export * as info from './music/info';
+export * as resume from './music/resume';
+export * as stop from './music/stop';
+export * as pause from './music/pause';

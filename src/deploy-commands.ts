@@ -12,7 +12,9 @@ type Command = {
 
 const commands: any = [];
 
-const client = new Client({ intents: ['GUILDS', 'GUILD_MESSAGES'] });
+const client = new Client({
+  intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_VOICE_STATES'],
+});
 
 const { CLIENT_TOKEN, CLIENT_ID, GUILD_ID } = envTokens;
 
