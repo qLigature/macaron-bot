@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Client, CommandInteraction } from 'discord.js';
-import { getUserLabel } from '../util/get-user-label';
+import { getUserLabel } from '../../util/get-user-label';
 
 export const data = new SlashCommandBuilder()
   .setName('ilovebald')
