@@ -1,18 +1,20 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
 
-module.exports = {
-  data: new SlashCommandBuilder()
-    .setName('pause')
-    .setDescription('Pauses the music'),
-  run: async ({ client, interaction }: any) => {
-    const queue = client.player.getQueue(interaction.guildId);
+export const data = new SlashCommandBuilder()
+  .setName('pause')
+  .setDescription('Pauses the music');
 
-    if (!queue)
-      return await interaction.editReply('There are no songs in the queue');
+export async function execute(interaction: CommandInteraction) {
+  const queue = interaction.client.player.getQueue(interaction.guildId!);
 
-    queue.setPaused(true);
-    await interaction.editReply(
-      'Music has been paused! Use `/resume` to resume the music',
-    );
-  },
-};
+  await interaction.reply('Playing something...');
+
+  if (!queue)
+    return await interaction.editReply('There are no songs in the queue');
+
+  queue.setPaused(true);
+  await interaction.editReply(
+    'Music has been paused! Use `/resume` to resume the music',
+  );
+}
