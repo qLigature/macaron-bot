@@ -5,6 +5,7 @@ export * as baldworship from './fun/baldworship';
 export * as nomoresteak from './fun/nomoresteak';
 export * as harumakigohan from './fun/harumakigohan';
 export * as はるまきごはん from './fun/はるまきごはん';
+export * as snail from './fun/snail';
 export * as bonk from './image/bonk';
 export * as harugang from './image/harugang';
 export * as iyowa from './image/iyowa';
