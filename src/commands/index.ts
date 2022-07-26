@@ -13,3 +13,4 @@ export * as opt from './moderation/opt';
 export * as blacklist from './moderation/blacklist';
 export * as whitelist from './moderation/whitelist';
 export * as blocklist from './moderation/blocklist';
+export * as dab from './fun/dab';
