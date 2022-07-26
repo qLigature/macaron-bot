@@ -5,7 +5,13 @@ import { setWebhook } from '../../util/set-webhook';
 
 export const data = new SlashCommandBuilder()
   .setName('dab')
-  .setDescription('dabbing the hell out of kyara');
+  .setDescription('dab the hell out of someone')
+  .addStringOption((option) =>
+    option
+      .setName('person')
+      .setDescription('who do you want to dab?')
+      .setRequired(true),
+  );
 
 export async function execute(interaction: CommandInteraction) {
   const channel = (await interaction.client.channels.fetch(
@@ -14,6 +20,8 @@ export async function execute(interaction: CommandInteraction) {
 
   const webhook = await setWebhook(interaction.client, channel);
 
+  const dabbed = interaction.options.getString('person')!;
+
   // TODO: figure out how to bypass mandatory reply for interactions when sending webhook
   interaction.reply('​');
   await interaction.deleteReply();
@@ -21,8 +29,8 @@ export async function execute(interaction: CommandInteraction) {
   webhook!.send({
     avatarURL: images.snail,
     username: 'RoboSnail Chan',
-    content: `<@519292820721238027>`,
-  })
+    content: `${dabbed}`,
+  });
 
   return await webhook!.send({
     avatarURL: images.snail,
