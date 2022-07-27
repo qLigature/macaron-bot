@@ -5,7 +5,7 @@ import { QueryType } from 'discord-player';
 // eslint-disable-next-line no-undef
 export const data = new SlashCommandBuilder()
   .setName('play')
-  .setDescription('loads songs from youtube')
+  .setDescription('Loads songs from youtube or spotify')
   .addSubcommand((subcommand) =>
     subcommand
       .setName('song')
@@ -62,14 +62,25 @@ export async function execute(interaction: CommandInteraction) {
   //==================================================================
   if (interaction.options.getSubcommand() === 'song') {
     const url = interaction.options.getString('url');
-    const result = await interaction.client.player.search(url!, {
+
+    let result;
+    if (url?.toLowerCase().includes("spotify.com")) {
+      result = await interaction.client.player.search(url!, {
+        requestedBy: interaction.user,
+        searchEngine: QueryType.SPOTIFY_SONG
+      })
+    } else {
+    result = await interaction.client.player.search(url!, {
       requestedBy: interaction.user,
       searchEngine: QueryType.YOUTUBE_VIDEO,
     });
+  }
 
     if (result.tracks.length === 0) return interaction.editReply('No results');
 
+    console.log(result)
     const song = result.tracks[0];
+    console.log(song);
     await queue.addTrack(song);
 
     embed
@@ -87,10 +98,18 @@ export async function execute(interaction: CommandInteraction) {
     const url = interaction.options.getString('url');
 
    
-    const result = await interaction.client.player.search(url!, {
+    let result;
+    if (url?.toLowerCase().includes("spotify.com")) {
+      result = await interaction.client.player.search(url!, {
+        requestedBy: interaction.user,
+        searchEngine: QueryType.SPOTIFY_PLAYLIST
+      })
+    } else {
+    result = await interaction.client.player.search(url!, {
       requestedBy: interaction.user,
-      searchEngine: QueryType.YOUTUBE_PLAYLIST
+      searchEngine: QueryType.YOUTUBE_PLAYLIST,
     });
+  }
 
     if (result.tracks.length === 0) return interaction.editReply('No results');
 
