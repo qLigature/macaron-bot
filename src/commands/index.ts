@@ -13,3 +13,4 @@ export * as blacklist from './moderation/blacklist';
 export * as whitelist from './moderation/whitelist';
 export * as blocklist from './moderation/blocklist';
 export * as gacha from './fun/gacha';
+export * as anyscript from './fun/anyscript';
