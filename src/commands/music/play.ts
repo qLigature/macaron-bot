@@ -70,11 +70,9 @@ export async function execute(interaction: CommandInteraction) {
     await queue.addTrack(song);
 
     embed
-      .setDescription(
-        `**[${song.title}](${song.url})** has been added to the Queue`,
-      )
+      .setDescription(`**Track**\n**[${song.title}](${song.url})**`)
       .setThumbnail(song.thumbnail)
-      .setFooter({ text: `Duration: ${song.duration}` });
+      .setFields({ name: `Duration`, value: `${song.duration}` });
   } else if (interaction.options.getSubcommand() === 'playlist') {
     const url = interaction.options.getString('url');
 

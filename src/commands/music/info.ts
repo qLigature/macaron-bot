@@ -11,7 +11,7 @@ export const execute =  async (interaction: CommandInteraction) => {
     if (!queue)
       return await interaction.reply('Beep Boop! No song detected.');
 
-    const song = queue.current;
+    const song = queue.current
 
 
     await interaction.reply({
