@@ -57,6 +57,9 @@ export async function execute(interaction: CommandInteraction) {
 
   const embed = new MessageEmbed();
 
+  //==================================================================
+  // SONG
+  //==================================================================
   if (interaction.options.getSubcommand() === 'song') {
     const url = interaction.options.getString('url');
     const result = await interaction.client.player.search(url!, {
@@ -73,12 +76,20 @@ export async function execute(interaction: CommandInteraction) {
       .setDescription(`**Track**\n**[${song.title}](${song.url})**`)
       .setThumbnail(song.thumbnail)
       .setFields({ name: `Duration`, value: `${song.duration}` });
+
+
+  //==================================================================
+  // PLAYLIST
+  //==================================================================
+
+
   } else if (interaction.options.getSubcommand() === 'playlist') {
     const url = interaction.options.getString('url');
 
+   
     const result = await interaction.client.player.search(url!, {
       requestedBy: interaction.user,
-      searchEngine: QueryType.YOUTUBE_PLAYLIST,
+      searchEngine: QueryType.YOUTUBE_PLAYLIST
     });
 
     if (result.tracks.length === 0) return interaction.editReply('No results');
@@ -91,7 +102,11 @@ export async function execute(interaction: CommandInteraction) {
           playlist!.url
         })** have been added to the Queue`,
       )
-      .setThumbnail(playlist!.thumbnail);
+
+  //==================================================================
+  // SEARCH
+  //==================================================================
+
   } else if (interaction.options.getSubcommand() === 'search') {
     const url = interaction.options.getString('searchterms');
     const result = await interaction.client.player.search(url!, {
