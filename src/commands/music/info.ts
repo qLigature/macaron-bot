@@ -1,19 +1,20 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 
-module.exports = {
-  data: new SlashCommandBuilder()
+export const data = new SlashCommandBuilder()
     .setName('info')
-    .setDescription('Displays info about the currently playing song'),
-  run: async ({ client, interaction }: any) => {
-    const queue = client.player.getQueue(interaction.guildId);
+    .setDescription('Displays info about the currently playing song')
+
+export const execute =  async (interaction: CommandInteraction) => {
+    const queue = interaction.client.player.getQueue(interaction.guildId!);
 
     if (!queue)
-      return await interaction.editReply('There are no songs in the queue');
+      return await interaction.reply('Beep Boop! No song detected.');
 
     const song = queue.current;
 
-    await interaction.editReply({
+
+    await interaction.reply({
       embeds: [
         new MessageEmbed()
           .setAuthor({ name: 'Track Info' })
@@ -23,5 +24,4 @@ module.exports = {
           .setDescription(`Currently Playing [${song.title}](${song.url})`),
       ],
     });
-  },
-};
+  }
