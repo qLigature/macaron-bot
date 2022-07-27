@@ -11,7 +11,7 @@ export async function execute(interaction: CommandInteraction) {
   await interaction.reply('Playing something...');
 
   if (!queue)
-    return await interaction.editReply('There are no songs in the queue');
+    return await interaction.editReply('Beep boop! No song detected.');
 
   queue.setPaused(true);
   await interaction.editReply(

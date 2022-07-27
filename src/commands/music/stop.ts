@@ -13,5 +13,5 @@ export async function execute(interaction: CommandInteraction) {
   if (!queue) return await interaction.editReply('Burning queue.');
 
   queue.destroy();
-  return interaction.editReply('Bye!');
+  return interaction.editReply('Macaron was thrown off the tower.');
 }

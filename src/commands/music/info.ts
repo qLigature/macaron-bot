@@ -1,27 +1,27 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
 
-module.exports = {
-  data: new SlashCommandBuilder()
-    .setName('info')
-    .setDescription('Displays info about the currently playing song'),
-  run: async ({ client, interaction }: any) => {
-    const queue = client.player.getQueue(interaction.guildId);
+export const data = new SlashCommandBuilder()
+  .setName('info')
+  .setDescription('Displays info about the currently playing song');
 
-    if (!queue)
-      return await interaction.editReply('There are no songs in the queue');
+export async function execute(interaction: CommandInteraction) {
+  const queue = interaction.client.player.getQueue(interaction.guildId!);
 
-    const song = queue.current;
+  if (!queue)
+    return await interaction.editReply('Beep boop! No song detected.');
 
-    await interaction.editReply({
-      embeds: [
-        new MessageEmbed()
-          .setAuthor({ name: 'Track Info' })
-          .setTitle(`${song.title}`)
-          .setURL(`${song.url}`)
-          .setThumbnail(song.thumbnail)
-          .setDescription(`Currently Playing [${song.title}](${song.url})`),
-      ],
-    });
-  },
-};
+  const song = queue.current;
+
+  await interaction.editReply({
+    embeds: [
+      new MessageEmbed()
+        .setAuthor({ name: 'Track Info' })
+        .setTitle(`${song.title}`)
+        .setURL(`${song.url}`)
+        .setThumbnail(song.thumbnail)
+        .setDescription(`Currently Playing [${song.title}](${song.url})`),
+    ],
+  });
+}
