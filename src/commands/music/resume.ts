@@ -1,9 +1,11 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 
-export const data = new SlashCommandBuilder()
+export const data = {build: new SlashCommandBuilder()
   .setName('resume')
-  .setDescription('Resumes the music');
+  .setDescription('Resumes the music'),
+  info: {category: "Music", emoji: "▶️"}
+}
 
 export async function execute(interaction: CommandInteraction) {
   const queue = interaction.client.player.getQueue(interaction.guildId!);

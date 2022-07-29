@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { Client, CommandInteraction } from 'discord.js';
 import { getUserLabel } from '../../util/get-user-label';
 
-export const data = new SlashCommandBuilder()
+export const data = {build: new SlashCommandBuilder()
   .setName('ilovebald')
   .setDescription('Express your love for bald')
   .addStringOption((option) =>
@@ -10,7 +10,8 @@ export const data = new SlashCommandBuilder()
       .setName('reason')
       .setDescription('Why do you love bald?')
       .setRequired(true),
-  );
+  ),
+  info: {category: "Fun", emoji: "<:baldlili:974751692610473994>"}};
 
 export async function execute(interaction: CommandInteraction, client: Client) {
   if (!interaction?.channelId) return;

@@ -3,7 +3,7 @@ import { MessageEmbed, CommandInteraction } from 'discord.js';
 import { QueryType } from 'discord-player';
 
 // eslint-disable-next-line no-undef
-export const data = new SlashCommandBuilder()
+export const data = {build: new SlashCommandBuilder()
   .setName('play')
   .setDescription('Loads songs from youtube or spotify')
   .addSubcommand((subcommand) =>
@@ -38,7 +38,9 @@ export const data = new SlashCommandBuilder()
           .setDescription('the search keywords')
           .setRequired(true),
       ),
-  );
+  ),
+  info: {category: "Music", emoji: "🎶"}
+}
 
 export async function execute(interaction: CommandInteraction) {
   const guild = interaction.client.guilds.cache.get(interaction.guildId!);

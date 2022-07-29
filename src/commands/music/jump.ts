@@ -1,13 +1,14 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 
-export const data = new SlashCommandBuilder()
+export const data = {build: new SlashCommandBuilder()
     .setName('jump')
     .setDescription('Jumps to a specific songs (skips all the songs between)')
     .addNumberOption(option =>
 		option.setName('track')
 			.setDescription('The TRACK NUMBER you would like to jump to')
-            .setRequired(true));
+            .setRequired(true)),
+    info: {category: "Music", emoji: "⏭️"}};
 export const execute =  async (interaction: CommandInteraction) => {
     const queue = interaction.client.player.getQueue(interaction.guildId!);
 

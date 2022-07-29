@@ -3,9 +3,10 @@ import { CommandInteraction, TextChannel } from 'discord.js';
 import { images } from '../../config/config.json';
 import en from '../../data/harugquotesen.json';
 
-export const data = new SlashCommandBuilder()
+export const data = {build: new SlashCommandBuilder()
   .setName('harumakigohan')
-  .setDescription('The creator of Buff Macaron');
+  .setDescription('The creator of Buff Macaron'),
+  info: {category: "Fun", emoji: "<:harugo:724587001617317948>"}};
 
 export async function execute(interaction: CommandInteraction) {
   const channel = (await interaction.client.channels.fetch(

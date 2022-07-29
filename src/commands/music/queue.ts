@@ -21,9 +21,10 @@ var msToTime = function(s: any) {
   }
 
 
-export const data = new SlashCommandBuilder()
+export const data = {build: new SlashCommandBuilder()
   .setName('queue')
-  .setDescription('Lists the music queue');
+  .setDescription('Lists the music queue'),
+  info: {category: "Music", emoji: "📜"}};
 
 export async function execute(interaction: CommandInteraction) {
     let queue = interaction.client.player.getQueue(interaction.guildId!);

@@ -1,7 +1,8 @@
-import { Client, ClientEvents } from 'discord.js';
+import { Client, ClientEvents, DiscordAPIError } from 'discord.js';
 import envTokens from './config/env-check';
 import * as fs from 'fs';
 import { Player } from 'discord-player';
+import {handle_commands} from './deploy-commands';
 
 const client = new Client({
   intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_VOICE_STATES'],
@@ -14,6 +15,7 @@ client.player = new Player(client, {
   },
 });
 
+client.commands = new Map();
 const eventFolderPath = __dirname + '/events/';
 
 fs.readdir(eventFolderPath, async (err, files) => {
@@ -35,5 +37,7 @@ fs.readdir(eventFolderPath, async (err, files) => {
     console.log(`Macaron has successfully loaded ${file}!`);
   }
 });
+
+handle_commands(client);
 
 client.login(envTokens.CLIENT_TOKEN);

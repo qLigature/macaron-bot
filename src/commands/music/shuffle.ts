@@ -20,9 +20,11 @@ function shuffle(array: any) {
     return array;
   }
 
-export const data = new SlashCommandBuilder()
+export const data = {build: new SlashCommandBuilder()
     .setName('shuffle')
-    .setDescription('Shuffles the song list')
+    .setDescription('Shuffles the song list'),
+    info: {category: "Music", emoji: "🔀"}
+}
 
 export const execute =  async (interaction: CommandInteraction) => {
     const queue = interaction.client.player.getQueue(interaction.guildId!);
