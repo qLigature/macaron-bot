@@ -1,7 +1,8 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { Track } from 'discord-player';
 import { CommandInteraction } from 'discord.js';
 
-function shuffle(array: any) {
+function shuffle(array: Array<Track>) {
   let currentIndex = array.length,
     randomIndex;
 

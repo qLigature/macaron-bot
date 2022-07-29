@@ -8,6 +8,7 @@ import {
 } from 'discord.js';
 
 const markdownEscape = function (text: string) {
+  // eslint-disable-next-line no-useless-escape
   return text.replace(/((\_|\*|\~|\`|\|){2})/g, '\\$1');
 };
 
