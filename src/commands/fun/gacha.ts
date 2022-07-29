@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import common from '../gacha/common.json';
 import rare from '../gacha/rare.json';
-import ultra from '../gacha/ultra rare.json';
+import ultra from '../gacha/ultra.json';
 
 export const data = new SlashCommandBuilder()
   .setName('gacha')
