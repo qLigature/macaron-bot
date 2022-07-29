@@ -20,6 +20,10 @@ export async function execute(interaction: CommandInteraction) {
     const number = jp[Math.floor(Math.random() * jp.length)];
     if (number === 'アイコンの振り向き方同じすぎる') {
       return number + ' ' + images.shoulder;
+    } else if (number === 'アスターのイントロで一本満足バーの歌うたえる') {
+      return (
+        number + '\nhttps://twitter.com/TapeGlue_mf/status/1398626281227374598'
+      );
     } else {
       return number;
     }

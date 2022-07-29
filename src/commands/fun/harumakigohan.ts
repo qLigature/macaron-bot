@@ -29,6 +29,13 @@ export async function execute(interaction: CommandInteraction) {
       'The way our icons are looking over their shoulders is too similar'
     ) {
       return number + ' ' + images.shoulder;
+    } else if (
+      number ===
+      'In the intro of Aster you can sing the jingle of Ippon Manzoku Bar'
+    ) {
+      return (
+        number + '\nhttps://twitter.com/TapeGlue_mf/status/1398626281227374598'
+      );
     } else {
       return number;
     }
