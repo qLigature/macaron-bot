@@ -1,8 +1,18 @@
 import { Client, ClientEvents } from 'discord.js';
 import envTokens from './config/env-check';
 import * as fs from 'fs';
+import { Player } from 'discord-player';
 
-const client = new Client({ intents: ['GUILDS', 'GUILD_MESSAGES'] });
+const client = new Client({
+  intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_VOICE_STATES'],
+});
+
+client.player = new Player(client, {
+  ytdlOptions: {
+    quality: 'highestaudio',
+    highWaterMark: 1 << 25,
+  },
+});
 
 const eventFolderPath = __dirname + '/events/';
 
