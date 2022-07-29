@@ -14,3 +14,14 @@ export * as blacklist from './moderation/blacklist';
 export * as whitelist from './moderation/whitelist';
 export * as blocklist from './moderation/blocklist';
 export * as dab from './fun/dab';
+export * as play from './music/play';
+export * as np from './music/np';
+export * as resume from './music/resume';
+export * as stop from './music/stop';
+export * as pause from './music/pause';
+export * as queue from './music/queue';
+export * as shuffle from './music/shuffle';
+export * as skip from './music/skip'
+export * as jump from './music/jump'
+export * as gacha from './fun/gacha';
+export * as anyscript from './fun/anyscript';
