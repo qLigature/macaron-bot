@@ -3,10 +3,12 @@ import { CommandInteraction, TextChannel } from 'discord.js';
 import { emojis, images } from '../../config/config.json';
 import { setWebhook } from '../../util/set-webhook';
 
-export const data = {build: new SlashCommandBuilder()
-  .setName('nomoresteak')
-  .setDescription('steak is gone after 2 days putting it in the freezer'),
-  info: {category: "Fun", emoji: "<:baldtina:975234600160870422>"}};
+export const data = {
+  build: new SlashCommandBuilder()
+    .setName('nomoresteak')
+    .setDescription('steak is gone after 2 days putting it in the freezer'),
+  info: { category: 'Fun', emoji: '<:baldtina:975234600160870422>' },
+};
 
 export async function execute(interaction: CommandInteraction) {
   const channel = (await interaction.client.channels.fetch(

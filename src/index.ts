@@ -1,8 +1,8 @@
-import { Client, ClientEvents, DiscordAPIError } from 'discord.js';
+import { Client, ClientEvents } from 'discord.js';
 import envTokens from './config/env-check';
 import * as fs from 'fs';
 import { Player } from 'discord-player';
-import {handle_commands} from './deploy-commands';
+import { handle_commands } from './deploy-commands';
 
 const client = new Client({
   intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_VOICE_STATES'],
