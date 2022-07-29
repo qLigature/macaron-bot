@@ -19,7 +19,10 @@ export const handle_commands = async function (client: Client) {
       if (f.endsWith('index.js')) return;
       f = f.split('\\build').pop()!;
       delete require.cache[require.resolve(`.\\${f}`)];
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const props = require(`.\\${f}`);
+      if (!props || !props.data || !props.data.build)
+          return console.log(`[FAIL] ${i + 1}: ${f} has failed to load! Did you format the "data" variable correctly?`);
       console.log(`${i + 1}: ${f} loaded!`);
       client.commands.set(props.data.build.name, props);
     });
