@@ -21,3 +21,5 @@ export * as queue from './music/queue';
 export * as shuffle from './music/shuffle';
 export * as skip from './music/skip'
 export * as jump from './music/jump'
+export * as gacha from './fun/gacha';
+export * as anyscript from './fun/anyscript';
