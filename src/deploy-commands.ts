@@ -5,7 +5,7 @@ import { Routes } from 'discord-api-types/v9';
 import envTokens from './config/env-check';
 import * as recursive from 'recursive-readdir';
 
-export const handle_commands = async function (client: Client) {
+export const deployCommands = async function (client: Client) {
   recursive.default(__dirname + '/commands', async (err: any, files: any) => {
     if (err) console.error(err);
     const jsfiles = files.filter((f: any) => f.split('.').pop() === 'js');
@@ -29,15 +29,16 @@ export const handle_commands = async function (client: Client) {
             i + 1
           }: ${f} has failed to load! Did you format the "data" variable correctly?`,
         );
+
       console.log(`${i + 1}: ${f} loaded!`);
       client.commands.set(props.data.build.name, props);
     });
 
-    await register_slash(client);
+    await registerSlash(client);
   });
 };
 
-function register_slash(client: Client) {
+function registerSlash(client: Client) {
   const commands: any = [];
 
   const { CLIENT_TOKEN, CLIENT_ID, GUILD_ID } = envTokens;
