@@ -20,11 +20,12 @@ export const deployCommands = async function (client: Client) {
 
     jsfiles.forEach((f: string, i: number) => {
       if (f.endsWith('index.js')) return;
-      f = f.split('\\dist').pop()!;
-      delete require.cache[require.resolve(`.\\${f}`)];
+      // TODO: rewrite this for compatibility with forward and backslashes
+      f = f.split('/dist').pop()!;
+      delete require.cache[require.resolve(`./${f}`)];
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const props = require(`.\\${f}`);
+      const props = require(`./${f}`);
 
       if (!props || !props.data || !props.data.dist)
         return console.log(
