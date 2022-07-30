@@ -3,15 +3,18 @@ import { CommandInteraction, TextChannel } from 'discord.js';
 import { emojis, images } from '../../config/config.json';
 import { setWebhook } from '../../util/set-webhook';
 
-export const data = new SlashCommandBuilder()
-  .setName('dab')
-  .setDescription('dab the hell out of someone')
-  .addStringOption((option) =>
-    option
-      .setName('person')
-      .setDescription('who do you want to dab?')
-      .setRequired(true),
-  );
+export const data = {
+  build: new SlashCommandBuilder()
+    .setName('dab')
+    .setDescription('dab the hell out of someone')
+    .addStringOption((option) =>
+      option
+        .setName('person')
+        .setDescription('who do you want to dab?')
+        .setRequired(true),
+    ),
+  info: { category: 'Fun', emoji: '❓' },
+};
 
 export async function execute(interaction: CommandInteraction) {
   const channel = (await interaction.client.channels.fetch(
