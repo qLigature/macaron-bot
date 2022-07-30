@@ -4,9 +4,12 @@ import { images } from '../../config/config.json';
 import jp from '../../data/harugquotesjp.json';
 import { setWebhook } from '../../util/set-webhook';
 
-export const data = new SlashCommandBuilder()
-  .setName('はるまきごはん')
-  .setDescription('The creator of Buff Macaron');
+export const data = {
+  build: new SlashCommandBuilder()
+    .setName('はるまきごはん')
+    .setDescription('The creator of Buff Macaron'),
+  info: { category: 'Fun', emoji: '<:harugo:724587001617317948>' },
+};
 
 export async function execute(interaction: CommandInteraction) {
   const channel = (await interaction.client.channels.fetch(

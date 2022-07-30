@@ -3,9 +3,12 @@ import { CommandInteraction, TextChannel } from 'discord.js';
 import { images } from '../../config/config.json';
 import { setWebhook } from '../../util/set-webhook';
 
-export const data = new SlashCommandBuilder()
-  .setName('snail')
-  .setDescription('test snail webhook');
+export const data = {
+  build: new SlashCommandBuilder()
+    .setName('snail')
+    .setDescription('test snail webhook'),
+  info: { category: 'Fun', emoji: '❓' },
+};
 
 export async function execute(interaction: CommandInteraction) {
   const channel = (await interaction.client.channels.fetch(

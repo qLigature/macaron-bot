@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "npm run deploy:commands && node build/index.js",
     "dev": "npm run deploy:commands && concurrently \"tsc -w\" \"nodemon build/index.js\"",
-    "deploy:commands": "tsc && node build/deploy-commands.js"
+    "deploy:commands": "tsc"
   },
   "author": "Jilling22 ft. HARUCORD",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "npm": ">=8.5.0"
   },
   "devDependencies": {
+    "@types/recursive-readdir": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "concurrently": "^7.2.2",
@@ -35,7 +36,8 @@
     "discord.js": "^13.8.1",
     "dotenv": "^16.0.1",
     "lodash": "^4.17.21",
-    "mongoose": "^6.4.4"
+    "mongoose": "^6.4.4",
+    "recursive-readdir": "^2.2.2"
   },
   "repository": {
     "type": "git",

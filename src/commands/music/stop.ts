@@ -1,9 +1,12 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 
-export const data = new SlashCommandBuilder()
-  .setName('stop')
-  .setDescription('Stops the bot and clears the queue');
+export const data = {
+  build: new SlashCommandBuilder()
+    .setName('stop')
+    .setDescription('Stops the bot and clears the queue'),
+  info: { category: 'Music', emoji: '⏹️' },
+};
 
 export async function execute(interaction: CommandInteraction) {
   const queue = interaction.client.player.getQueue(interaction.guildId!);

@@ -2,9 +2,12 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, TextChannel } from 'discord.js';
 import { setWebhook } from '../../util/set-webhook';
 
-export const data = new SlashCommandBuilder()
-  .setName('yunyah')
-  .setDescription('is unigory part of zutto mayonaka cinama universe');
+export const data = {
+  build: new SlashCommandBuilder()
+    .setName('yunyah')
+    .setDescription('is unigory part of zutto mayonaka cinama universe'),
+  info: { category: 'Fun', emoji: '🕵️' },
+};
 
 export async function execute(interaction: CommandInteraction) {
   const channel = (await interaction.client.channels.fetch(

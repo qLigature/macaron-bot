@@ -3,6 +3,7 @@ import { Player } from 'discord-player';
 declare module 'discord.js' {
   export interface Client {
     player: Player;
+    commands: Map;
   }
 
   export interface GuildMember {
