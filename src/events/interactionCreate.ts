@@ -1,7 +1,7 @@
 import { Client, Interaction } from 'discord.js';
 
 module.exports = async (client: Client, interaction: Interaction) => {
-  const commands = client.commands
+  const commands = client.commands;
   if (!interaction.isCommand()) return;
 
   const command = commands.get(interaction.commandName);
