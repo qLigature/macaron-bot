@@ -2,7 +2,6 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { MessageEmbed, CommandInteraction } from 'discord.js';
 import { QueryType } from 'discord-player';
 
-// eslint-disable-next-line no-undef
 export const data = {
   build: new SlashCommandBuilder()
     .setName('play')
@@ -81,9 +80,7 @@ export async function execute(interaction: CommandInteraction) {
 
     if (result.tracks.length === 0) return interaction.editReply('No results');
 
-    console.log(result);
     const song = result.tracks[0];
-    console.log(song);
     await queue.addTrack(song);
 
     embed
