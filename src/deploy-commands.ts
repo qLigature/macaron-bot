@@ -21,13 +21,12 @@ export const deployCommands = async function (client: Client) {
     jsfiles.forEach((f: string, i: number) => {
       if (f.endsWith('index.js')) return;
       // TODO: rewrite this for compatibility with forward and backslashes
-      f = f.split('/dist').pop()!;
+      f = f.replaceAll('\\', '/').split('/dist').pop()!;
       delete require.cache[require.resolve(`./${f}`)];
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const props = require(`./${f}`);
-
-      if (!props || !props.data || !props.data.dist)
+      if (!props || !props.data || !props.data.build)
         return console.log(
           `[FAIL] ${
             i + 1
@@ -35,7 +34,7 @@ export const deployCommands = async function (client: Client) {
         );
 
       console.log(`${i + 1}: ${f} loaded!`);
-      client.commands.set(props.data.dist.name, props);
+      client.commands.set(props.data.build.name, props);
     });
 
     await registerSlash(client);
@@ -48,7 +47,7 @@ function registerSlash(client: Client) {
   const { NODE_ENV, CLIENT_TOKEN, CLIENT_ID, GUILD_ID } = envTokens;
   const iterator = Array.from(client.commands.values());
   iterator.forEach((i: any) => {
-    commands.push(i.data.dist);
+    commands.push(i.data.build);
   });
 
   const rest = new REST({ version: '9' }).setToken(CLIENT_TOKEN);
