@@ -4,11 +4,13 @@ import { images } from '../../config/config.json';
 
 export const data = {
   build: new SlashCommandBuilder()
-    .setName('bonk')
-    .setDescription('a picture of Giita about to slam Nana with her guitar.'),
-  info: { category: 'Image', emoji: '<:nana_bonk:839286571991433237>' },
+    .setName('anyscript')
+    .setDescription('descride your frustration to typescript'),
+  info: { category: 'Fun', emoji: '❓' },
 };
 
 export async function execute(interaction: CommandInteraction) {
-  return interaction.reply(images.giitaBonk);
+  return interaction.reply(
+    `fuck typescript all my\nhomies hate typescript. declare\nall types as any!\n${images.anyscript}`,
+  );
 }

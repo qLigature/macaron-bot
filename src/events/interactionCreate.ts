@@ -1,11 +1,10 @@
 import { Client, Interaction } from 'discord.js';
-import * as commandModules from '../commands';
 
 module.exports = async (client: Client, interaction: Interaction) => {
-  const commands = Object(commandModules);
+  const commands = client.commands;
   if (!interaction.isCommand()) return;
 
-  const command = commands[interaction.commandName];
+  const command = commands.get(interaction.commandName);
   if (!command) return;
 
   try {

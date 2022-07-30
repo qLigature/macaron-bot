@@ -5,9 +5,9 @@ import { setWebhook } from '../../util/set-webhook';
 
 export const data = {
   build: new SlashCommandBuilder()
-    .setName('iyowa')
-    .setDescription('the kukarin girl giving you banana'),
-  info: { category: 'Image', emoji: '🍌' },
+    .setName('snail')
+    .setDescription('test snail webhook'),
+  info: { category: 'Fun', emoji: '❓' },
 };
 
 export async function execute(interaction: CommandInteraction) {
@@ -22,8 +22,8 @@ export async function execute(interaction: CommandInteraction) {
   await interaction.deleteReply();
 
   return await webhook!.send({
-    avatarURL: images.iyowaAvatar,
-    username: 'いよわ',
-    content: images.banana,
+    avatarURL: images.snail,
+    username: 'RoboSnail Chan',
+    content: '<@519292820721238027> WAHAHA!',
   });
 }

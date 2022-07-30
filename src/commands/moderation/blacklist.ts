@@ -10,9 +10,12 @@ import {
 import { getMap } from '../../util/map-emoji';
 import { exportGuild, updateGuild } from '../../models/guild';
 
-export const data = new SlashCommandBuilder()
-  .setName('blacklist')
-  .setDescription('Blacklists emojis from being used globally');
+export const data = {
+  build: new SlashCommandBuilder()
+    .setName('blacklist')
+    .setDescription('Blacklists emojis from being used globally'),
+  info: { category: 'Moderation', emoji: '🏴' },
+};
 
 export async function execute(interaction: CommandInteraction) {
   if (!interaction.memberPermissions?.has('MANAGE_MESSAGES'))

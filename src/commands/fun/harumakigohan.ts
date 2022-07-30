@@ -3,9 +3,12 @@ import { CommandInteraction, TextChannel } from 'discord.js';
 import { images } from '../../config/config.json';
 import en from '../../data/harugquotesen.json';
 
-export const data = new SlashCommandBuilder()
-  .setName('harumakigohan')
-  .setDescription('The creator of Buff Macaron');
+export const data = {
+  build: new SlashCommandBuilder()
+    .setName('harumakigohan')
+    .setDescription('The creator of Buff Macaron'),
+  info: { category: 'Fun', emoji: '<:harugo:724587001617317948>' },
+};
 
 export async function execute(interaction: CommandInteraction) {
   const channel = (await interaction.client.channels.fetch(
@@ -28,6 +31,13 @@ export async function execute(interaction: CommandInteraction) {
       'The way our icons are looking over their shoulders is too similar'
     ) {
       return number + ' ' + images.shoulder;
+    } else if (
+      number ===
+      'In the intro of Aster you can sing the jingle of Ippon Manzoku Bar'
+    ) {
+      return (
+        number + '\nhttps://twitter.com/TapeGlue_mf/status/1398626281227374598'
+      );
     } else {
       return number;
     }

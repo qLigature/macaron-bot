@@ -1,27 +1,79 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Client } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 import envTokens from './config/env-check';
-import * as commandModules from './commands';
+import * as recursive from 'recursive-readdir';
 
-type Command = {
-  data: any;
+export const deployCommands = async function (client: Client) {
+  recursive.default(__dirname + '/commands', async (err: any, files: any) => {
+    if (err) console.error(err);
+    const jsfiles = files.filter((f: any) => f.split('.').pop() === 'js');
+    if (jsfiles.length <= 0) {
+      return;
+    }
+
+    console.log(`\nLoading ${jsfiles.length} commands!`);
+
+    jsfiles.forEach((f: string, i: number) => {
+      if (f.endsWith('index.js')) return;
+      f = f.split('\\build').pop()!;
+      delete require.cache[require.resolve(`.\\${f}`)];
+
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const props = require(`.\\${f}`);
+
+      if (!props || !props.data || !props.data.build)
+        return console.log(
+          `[FAIL] ${
+            i + 1
+          }: ${f} has failed to load! Did you format the "data" variable correctly?`,
+        );
+
+      console.log(`${i + 1}: ${f} loaded!`);
+      client.commands.set(props.data.build.name, props);
+    });
+
+    await registerSlash(client);
+  });
 };
 
-const { CLIENT_TOKEN, CLIENT_ID, GUILD_ID } = envTokens;
-const commands: any = [];
+function registerSlash(client: Client) {
+  const commands: any = [];
 
-for (const module of Object.values<Command>(commandModules)) {
-  commands.push(module.data);
+  const { NODE_ENV, CLIENT_TOKEN, CLIENT_ID, GUILD_ID } = envTokens;
+  const iterator = Array.from(client.commands.values());
+  iterator.forEach((i: any) => {
+    commands.push(i.data.build);
+  });
+
+  const rest = new REST({ version: '9' }).setToken(CLIENT_TOKEN);
+
+  (async () => {
+    try {
+      if (NODE_ENV === 'production') {
+        await rest.put(Routes.applicationCommands(CLIENT_ID), {
+          body: commands,
+        });
+
+        console.log(
+          'Buff Macaron has successfully registered commands globally!',
+        );
+      } else if (NODE_ENV === 'development') {
+        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
+          body: commands,
+        });
+
+        console.log(
+          'Test Macaron has successfully registered commands locally!',
+        );
+      } else {
+        throw new Error(
+          'Macaron jumped off the tower in confusion! Please check your NODE_ENV variable and try again.',
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  })();
 }
-
-const rest = new REST({ version: '9' }).setToken(CLIENT_TOKEN);
-
-rest
-  .put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
-    body: commands,
-  })
-  .then(() => {
-    console.log('Macaron has successfully registered commands!');
-  })
-  .catch(console.error);
