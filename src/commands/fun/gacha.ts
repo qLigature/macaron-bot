@@ -1,8 +1,8 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
-import common from '../gacha/common.json';
-import rare from '../gacha/rare.json';
-import ultra from '../gacha/ultra.json';
+import common from '../../data/gacha/common.json';
+import rare from '../../data/gacha/rare.json';
+import ultra from '../../data/gacha/ultra.json';
 
 export const data = {
   build: new SlashCommandBuilder()
