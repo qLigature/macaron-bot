@@ -41,19 +41,39 @@ export const deployCommands = async function (client: Client) {
 function registerSlash(client: Client) {
   const commands: any = [];
 
-  const { CLIENT_TOKEN, CLIENT_ID, GUILD_ID } = envTokens;
+  const { NODE_ENV, CLIENT_TOKEN, CLIENT_ID, GUILD_ID } = envTokens;
   const iterator = Array.from(client.commands.values());
   iterator.forEach((i: any) => {
     commands.push(i.data.build);
   });
 
   const rest = new REST({ version: '9' }).setToken(CLIENT_TOKEN);
-  rest
-    .put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
-      body: commands,
-    })
-    .then(() => {
-      console.log('Macaron has successfully registered commands!');
-    })
-    .catch(console.error);
+
+  (async () => {
+    try {
+      if (NODE_ENV === 'production') {
+        await rest.put(Routes.applicationCommands(CLIENT_ID), {
+          body: commands,
+        });
+
+        console.log(
+          'Buff Macaron has successfully registered commands globally!',
+        );
+      } else if (NODE_ENV === 'development') {
+        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
+          body: commands,
+        });
+
+        console.log(
+          'Test Macaron has successfully registered commands locally!',
+        );
+      } else {
+        throw new Error(
+          'Macaron jumped off the tower in confusion! Please check your NODE_ENV variable and try again.',
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  })();
 }
