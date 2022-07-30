@@ -4,7 +4,6 @@
   "description": "Your very own MACARON, now in TypeScript! Disclaimer: cannot clean rooms",
   "main": "index.ts",
   "scripts": {
-    "build": "tsc",
     "start": "node dist/index.js",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "postinstall": "tsc && rm -v -rf assets && rm -v -rf src"
