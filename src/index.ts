@@ -1,6 +1,7 @@
 import { Client, ClientEvents } from 'discord.js';
 import envTokens from './config/env-check';
 import * as fs from 'fs';
+import * as path from 'path';
 import { Player } from 'discord-player';
 import { deployCommands } from './deploy-commands';
 
@@ -16,13 +17,14 @@ client.player = new Player(client, {
 });
 
 client.commands = new Map();
-const eventFolderPath = __dirname + '/events/';
+const eventFolderPath = path.join(__dirname, 'events');
 
 fs.readdir(eventFolderPath, async (err, files) => {
   if (err) return console.error(err);
 
   for (const file of files) {
-    const event = await import(eventFolderPath + file);
+    const filePath = path.join(eventFolderPath, file);
+    const event = await import(filePath);
     const eventName = file.split('.')[0];
 
     if (eventName === 'ready') {

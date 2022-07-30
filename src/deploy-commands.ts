@@ -3,10 +3,13 @@ import { Client } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 import envTokens from './config/env-check';
+import * as path from 'path';
 import * as recursive from 'recursive-readdir';
 
 export const deployCommands = async function (client: Client) {
-  recursive.default(__dirname + '/commands', async (err: any, files: any) => {
+  const commandFolderPath = path.join(__dirname, 'commands');
+
+  recursive.default(commandFolderPath, async (err: any, files: any) => {
     if (err) console.error(err);
     const jsfiles = files.filter((f: any) => f.split('.').pop() === 'js');
     if (jsfiles.length <= 0) {
@@ -17,13 +20,13 @@ export const deployCommands = async function (client: Client) {
 
     jsfiles.forEach((f: string, i: number) => {
       if (f.endsWith('index.js')) return;
-      f = f.split('\\build').pop()!;
+      f = f.split('\\dist').pop()!;
       delete require.cache[require.resolve(`.\\${f}`)];
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const props = require(`.\\${f}`);
 
-      if (!props || !props.data || !props.data.build)
+      if (!props || !props.data || !props.data.dist)
         return console.log(
           `[FAIL] ${
             i + 1
@@ -31,7 +34,7 @@ export const deployCommands = async function (client: Client) {
         );
 
       console.log(`${i + 1}: ${f} loaded!`);
-      client.commands.set(props.data.build.name, props);
+      client.commands.set(props.data.dist.name, props);
     });
 
     await registerSlash(client);
@@ -44,7 +47,7 @@ function registerSlash(client: Client) {
   const { NODE_ENV, CLIENT_TOKEN, CLIENT_ID, GUILD_ID } = envTokens;
   const iterator = Array.from(client.commands.values());
   iterator.forEach((i: any) => {
-    commands.push(i.data.build);
+    commands.push(i.data.dist);
   });
 
   const rest = new REST({ version: '9' }).setToken(CLIENT_TOKEN);
