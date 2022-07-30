@@ -5,6 +5,8 @@ Buff Macaron is a Discord bot for the HARUMAKI GOHAN server!
 ## Features
 
 - Can lure wild riceball eaters
+- Can play music
+- Can do silly things
 - Can clean your room (WIP)
 - Will burn your house (WIP)
 
@@ -20,7 +22,7 @@ Buff Macaron is a Discord bot for the HARUMAKI GOHAN server!
 1. Clone or download the repository
 
    ```sh
-   $ git clone https://github.com/Jilling22/Macaron-bot.git
+   $ git clone https://github.com/qLigature/macaron-bot.git
    ```
 
 2. Install npm packages
@@ -114,3 +116,4 @@ Distributed under the ISC License. See `LICENSE` for more information.
 
 - Jilling22
 - Weepy
+- ThatMajesticGuy
