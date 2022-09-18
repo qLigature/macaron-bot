@@ -4,9 +4,11 @@
   "description": "Your very own MACARON, now in TypeScript! Disclaimer: cannot clean rooms",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc",
+    "build:development": "npm run clean && tsc",
     "start": "node dist/index.js",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
-    "postinstall": "tsc && rm -v -rf assets && rm -v -rf src"
+    "clean": "rimraf dist"
   },
   "author": "Jilling22 ft. HARUCORD",
   "license": "ISC",
@@ -15,6 +17,8 @@
     "npm": ">=8.5.0"
   },
   "devDependencies": {
+    "@types/node": "^18.6.3",
+    "@types/recursive-readdir": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "concurrently": "^7.2.2",
@@ -23,18 +27,16 @@
     "eslint-plugin-prettier": "^4.2.1",
     "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.7.4"
   },
   "dependencies": {
     "@discordjs/opus": "^0.8.0",
     "@discordjs/rest": "^0.5.0",
     "@discordjs/voice": "^0.11.0",
-    "@types/lodash": "^4.14.182",
-    "@types/recursive-readdir": "^2.2.1",
     "discord-player": "^5.2.2",
     "discord.js": "^13.8.1",
     "dotenv": "^16.0.1",
-    "lodash": "^4.17.21",
     "mongoose": "^6.4.4",
     "recursive-readdir": "^2.2.2"
   },

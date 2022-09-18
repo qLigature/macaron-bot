@@ -1,8 +1,8 @@
 import { Client, Message, TextChannel, MessageEmbed } from 'discord.js';
-import _ from 'lodash';
 import { exportGuild } from '../models/guild';
 import { setWebhook } from '../util/set-webhook';
 import { insertEmoji } from '../util/insert-emoji';
+import { unique } from '../util/unique';
 
 export const handleNonNitroEmoji = async (client: Client, message: Message) => {
   if (!message.guild!.me?.permissions.has('MANAGE_MESSAGES')) {
@@ -23,7 +23,7 @@ export const handleNonNitroEmoji = async (client: Client, message: Message) => {
   if (!guildOptedIn) return;
 
   // Substitute each emoji name with the emoji itself
-  messageEmojis = _.uniq(messageEmojis);
+  messageEmojis = unique(messageEmojis);
   const newMessage = insertEmoji(message.content, messageEmojis, blacklist);
 
   // If nothing changed, don't send a new message
